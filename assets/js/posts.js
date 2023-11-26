@@ -1,4 +1,5 @@
 import { urls } from "./constant.js"
+import { getSinglePost, toggleHidden } from "./post.js"
 import { formatDateShort } from "./utils.js"
 
 
@@ -7,8 +8,6 @@ export async function getPosts(){
     const data = await res.json()
 
     const { posts } = data 
-
-    console.log(posts)
 
     posts.forEach(post => {
         createPosts(post)
@@ -25,6 +24,7 @@ function createPosts(post){
 
     const linkContainer = document.createElement('a')
     linkContainer.classList.add('post-link')
+    linkContainer.setAttribute('data-id', id)
 
     const headerPost = document.createElement('header')
     headerPost.classList.add('post-header')
@@ -47,11 +47,20 @@ function createPosts(post){
     sectionPost.appendChild(postContainer)
     postContainer.appendChild(linkContainer)
     linkContainer.appendChild(headerPost)
+    linkContainer.appendChild(footerContainer)
     headerPost.appendChild(titlePost)
-    postContainer.appendChild(footerContainer)
     footerContainer.appendChild(postContent)
     footerContainer.appendChild(datePost)
 
+    postContainer.addEventListener('click', () => {
+            
+        const spinner = document.querySelector('.loader-container')
+        spinner.classList.toggle('hidden')
+        setTimeout(() => {
+            toggleHidden()
+            spinner.classList.toggle('hidden')
+        },1000)
+        
+        getSinglePost(id)
+    })
 }
-
-getPosts()

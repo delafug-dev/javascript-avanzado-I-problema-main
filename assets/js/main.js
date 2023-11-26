@@ -1,6 +1,8 @@
+import { getSinglePost } from "./post.js"
 import { getPosts } from "./posts.js"
 
+async function loadData(){
+    await getPosts()
+}
 
-document.addEventListener('DOMContentLoaded', () =>{
-    getPosts()
-})
+loadData()

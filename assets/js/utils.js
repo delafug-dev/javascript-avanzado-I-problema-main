@@ -15,17 +15,29 @@ export const formatDateShort = (value) => {
     const meses = Math.floor(dias / 30)
     const anios = Math.floor(dias / 365) 
 
-    const fecha = `Han pasado ${anios} años ${meses} 
-    meses ${semanas} semanas ${dias} dias ${horas} horas ${minutos} minutos ${segundos} segundos`
+    let fecha = 'Han pasado';
 
-    return fecha
+    if (anios > 0) {
+        fecha += ` ${anios} años`;
+    }
+    if (meses > 0) {
+        fecha += ` ${meses} meses`;
+    }
+    if (semanas > 0) {
+        fecha += ` ${semanas} semanas`;
+    }
+    if (dias > 0) {
+        fecha += ` ${dias} días`;
+    }
+    if (horas > 0) {
+        fecha += ` ${horas} horas`;
+    }
+    if (minutos > 0) {
+        fecha += ` ${minutos} minutos`;
+    }
+    if (segundos > 0) {
+        fecha += ` ${segundos} segundos`;
+    }
+
+    return fecha === 'Han pasado' ? 'Recién sucedido' : fecha;
 }
-
-
-// segundos,
-// minutos,
-// horas,
-// dias,
-// semanas,
-// meses,
-// anios
